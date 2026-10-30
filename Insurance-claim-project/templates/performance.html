@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Performance | InsurePredict AI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f3f6fc;
+            color: #24324b;
+        }
+
+        nav {
+            background: #142d54;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #142d54, #2874c7);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .hero h1 {
+            margin-bottom: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        }
+
+        .card h3 {
+            color: #758198;
+            font-size: 15px;
+        }
+
+        .card h2 {
+            color: #246bd1;
+            font-size: 30px;
+        }
+
+        .matrix-card {
+            background: white;
+            margin-top: 30px;
+            padding: 30px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            max-width: 650px;
+            margin: 25px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 18px;
+            border: 1px solid #dce4ee;
+        }
+
+        th {
+            background: #eaf2ff;
+        }
+
+        td {
+            font-size: 22px;
+            font-weight: bold;
+            color: #246bd1;
+        }
+
+        .description {
+            color: #758198;
+            line-height: 1.7;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 13px 25px;
+            background: #246bd1;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #758198;
+        }
+
+        @media (max-width: 800px) {
+            .metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .matrix-card {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">🛡️ InsurePredict AI</div>
+
+    <div>
+        <a href="/">Prediction</a>
+        <a href="/performance">Model Performance</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1>Model Performance Dashboard</h1>
+    <p>Logistic Regression Model Evaluation</p>
+</section>
+
+<div class="container">
+
+    <div class="metrics">
+
+        <div class="card">
+            <h3>Accuracy</h3>
+            <h2>{{ accuracy }}%</h2>
+            <p class="description">Overall correct predictions</p>
+        </div>
+
+        <div class="card">
+            <h3>Precision</h3>
+            <h2>{{ precision }}%</h2>
+            <p class="description">Reliability of positive predictions</p>
+        </div>
+
+        <div class="card">
+            <h3>Recall</h3>
+            <h2>{{ recall }}%</h2>
+            <p class="description">Actual claims correctly identified</p>
+        </div>
+
+        <div class="card">
+            <h3>F1 Score</h3>
+            <h2>{{ f1 }}%</h2>
+            <p class="description">Balance of precision and recall</p>
+        </div>
+
+    </div>
+
+    <div class="matrix-card">
+
+        <h2>Confusion Matrix</h2>
+
+        <p class="description">
+            Comparison between actual and predicted insurance claims.
+        </p>
+
+        <table>
+            <tr>
+                <th></th>
+                <th>Predicted No Claim</th>
+                <th>Predicted Claim</th>
+            </tr>
+
+            <tr>
+                <th>Actual No Claim</th>
+                <td>{{ cm[0][0] }}</td>
+                <td>{{ cm[0][1] }}</td>
+            </tr>
+
+            <tr>
+                <th>Actual Claim</th>
+                <td>{{ cm[1][0] }}</td>
+                <td>{{ cm[1][1] }}</td>
+            </tr>
+        </table>
+
+        <p class="description">
+            The confusion matrix shows true negatives,
+            false positives, false negatives, and true positives.
+        </p>
+
+        <a href="/" class="back-btn">
+            ← Back to Prediction
+        </a>
+
+    </div>
+
+</div>
+
+<footer>
+    InsurePredict AI | Insurance Claim Prediction Using Logistic Regression
+</footer>
+
+</body>
+</html>

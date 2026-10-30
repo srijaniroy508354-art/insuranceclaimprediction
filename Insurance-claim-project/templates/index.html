@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Claim Prediction | AI Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f3f6fc;
+            color: #24324b;
+        }
+
+        nav {
+            background: #142d54;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #70c5ff;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #142d54, #2874c7);
+            color: white;
+            text-align: center;
+            padding: 55px 20px;
+        }
+
+        .hero h1 {
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: #dceaff;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #142d54;
+        }
+
+        .subtitle {
+            color: #758198;
+            margin-bottom: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d6deeb;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #2874c7;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 30px;
+            padding: 15px;
+            border: none;
+            border-radius: 9px;
+            background: #246bd1;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #174e9c;
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .claim {
+            background: #fff0f0;
+            border: 1px solid #ffb8b8;
+            color: #a32323;
+        }
+
+        .no-claim {
+            background: #eafaf1;
+            border: 1px solid #a4e7c0;
+            color: #176c42;
+        }
+
+        .probability-bar {
+            background: #dce4ee;
+            height: 14px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .probability-fill {
+            height: 100%;
+            background: #2874c7;
+            border-radius: 20px;
+        }
+
+        .result h2 {
+            margin-top: 0;
+        }
+
+        .dashboard-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: #246bd1;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #758198;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 22px;
+            }
+
+            .hero h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">🛡️ InsurePredict AI</div>
+
+    <div>
+        <a href="/">Prediction</a>
+        <a href="/performance">Model Performance</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1>Insurance Claim Prediction</h1>
+    <p>
+        Predict insurance claim probability using
+        Machine Learning and Logistic Regression
+    </p>
+</section>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Customer Information</h2>
+
+        <p class="subtitle">
+            Enter the customer's information to generate
+            an AI-powered insurance claim prediction.
+        </p>
+
+        <form method="POST">
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Customer Age</label>
+                    <input type="number" name="age"
+                           min="18" max="100" required>
+                </div>
+
+                <div>
+                    <label>Vehicle Age (Years)</label>
+                    <input type="number"
+                           name="vehicle_age_years"
+                           min="0" max="100"
+                           step="0.1" required>
+                </div>
+
+                <div>
+                    <label>Annual Mileage (KM)</label>
+                    <input type="number"
+                           name="annual_mileage_km"
+                           min="0" required>
+                </div>
+
+                <div>
+                    <label>Previous Claims</label>
+                    <input type="number"
+                           name="past_claims_count"
+                           min="0" required>
+                </div>
+
+                <div>
+                    <label>Annual Premium (₹)</label>
+                    <input type="number"
+                           name="annual_premium_inr"
+                           min="0" required>
+                </div>
+
+                <div>
+                    <label>Vehicle Type</label>
+                    <select name="vehicle_type" required>
+                        <option value="Hatchback">Hatchback</option>
+                        <option value="Sedan">Sedan</option>
+                        <option value="SUV">SUV</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Region</label>
+                    <select name="region" required>
+                        <option value="Urban">Urban</option>
+                        <option value="Suburban">Suburban</option>
+                        <option value="Rural">Rural</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <button type="submit">
+                Predict Insurance Claim →
+            </button>
+
+        </form>
+
+        {% if result %}
+
+        <div class="result
+            {% if result == 'Claim Predicted' %}
+                claim
+            {% else %}
+                no-claim
+            {% endif %}">
+
+            <h2>{{ result }}</h2>
+
+            <p>Estimated Claim Probability</p>
+
+            <h1>{{ probability }}%</h1>
+
+            <div class="probability-bar">
+                <div class="probability-fill"
+                     style="width: {{ probability }}%;">
+                </div>
+            </div>
+
+            <p>
+                <small>
+                    This prediction is generated using
+                    Logistic Regression and is intended
+                    for educational purposes only.
+                </small>
+            </p>
+
+        </div>
+
+        {% endif %}
+
+        <a href="/performance" class="dashboard-link">
+            View Model Performance Dashboard →
+        </a>
+
+    </div>
+
+</div>
+
+<footer>
+    Insurance Claim Prediction Using Logistic Regression
+    | AI & ML Academic Project
+</footer>
+
+</body>
+</html>
